@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Movie } from '../movie';
+import { Movies } from '../movie.datasource';
 
 @Component({
   selector: 'movies',
@@ -6,6 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./movies.component.css']
 })
 export class MoviesComponent implements OnInit {
+
+  title = "Movie List";
+  movies = Movies;
+  selectedMovie : Movie;
+
+  onSelect(movie:Movie): void{
+    this.selectedMovie = movie;
+  }
 
   constructor() { }
 
