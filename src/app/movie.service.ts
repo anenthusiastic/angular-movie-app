@@ -18,4 +18,12 @@ export class MovieService {
     this.loggingService.add("Movies are retrieving")
     return of(Movies);
   }
+
+  get5movies(which:number): Observable<Movie[]>{
+    return of(Movies.slice((which-1)*5,(which)*5));
+  }
+
+  getMoviesLength():number{
+    return Movies.length
+  }
 }

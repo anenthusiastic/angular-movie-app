@@ -18,7 +18,6 @@ export class LoggingComponent implements OnInit {
 
   clearLogs(){
     this.loggingService.clear();
-    this.logs = this.loggingService.getLogList();
   }
 
 }

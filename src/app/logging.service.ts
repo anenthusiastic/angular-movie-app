@@ -12,7 +12,10 @@ export class LoggingService {
   }
 
   clear(){
-    this.loggingList = []
+    while(this.loggingList.length>0){
+      this.loggingList.pop()
+    }
+
   }
 
   getLogList(): string[]{
