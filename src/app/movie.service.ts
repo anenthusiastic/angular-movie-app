@@ -23,6 +23,11 @@ export class MovieService {
     return of(Movies.slice((which-1)*5,(which)*5));
   }
 
+  getTheMovie(id : number): Observable<Movie>{
+    this.loggingService.add("MovieService get details by id: "+id);
+    return of(Movies.find(movie=>movie.id === id));
+  }
+
   getMoviesLength():number{
     return Movies.length
   }
