@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { LoggingService } from '../logging.service';
 import { Movie } from '../movie';
-import { Movies } from '../movie.datasource';
+import { MovieService } from '../movie.service';
 
 @Component({
   selector: 'movies',
@@ -10,16 +11,18 @@ import { Movies } from '../movie.datasource';
 export class MoviesComponent implements OnInit {
 
   title = "Movie List";
-  movies = Movies;
+  movies : Movie[];
   selectedMovie : Movie;
+
+  constructor(private movieService:MovieService, private loggingService : LoggingService) { }
+
+  ngOnInit(): void {
+    this.movieService.getMovies().subscribe(movies=> {this.movies = movies})
+  }
 
   onSelect(movie:Movie): void{
     this.selectedMovie = movie;
-  }
-
-  constructor() { }
-
-  ngOnInit(): void {
+    this.loggingService.add(movie.name+" selected")
   }
 
 }
