@@ -2,33 +2,47 @@ import { Injectable } from '@angular/core';
 import { Observable,of } from 'rxjs';
 import { LoggingService } from './logging.service';
 import { Movie } from './movie';
-import { Movies } from './movie.datasource';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Movies } from './movies.datasource';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
 
+  private moviesApiUrl = "api/movies";
 
-  constructor(private loggingService:LoggingService) {
+  constructor(private loggingService:LoggingService, private http:HttpClient) {
 
    }
 
   getMovies() : Observable<Movie[]>{
-    this.loggingService.add("Movies are retrieving")
-    return of(Movies);
+    this.loggingService.add("MovieService is sending movies.");
+    return this.http.get<Movie[]>(this.moviesApiUrl);
   }
 
-  get5movies(which:number): Observable<Movie[]>{
-    return of(Movies.slice((which-1)*5,(which)*5));
-  }
 
   getTheMovie(id : number): Observable<Movie>{
-    this.loggingService.add("MovieService get details by id: "+id);
-    return of(Movies.find(movie=>movie.id === id));
+    this.loggingService.add("MovieService is sending details by id: "+id);
+    return this.http.get<Movie>(this.moviesApiUrl+"/"+id);
   }
 
-  getMoviesLength():number{
-    return Movies.length
+
+  update(movie : Movie):Observable<any>{
+    const httpOptions = {
+      headers : new HttpHeaders({"Content-type" : "application/json"})
+    }
+    this.loggingService.add("MovieService is updating details of the movie : id: "+movie.id+", name: "+movie.name);
+    return this.http.put(this.moviesApiUrl,movie,httpOptions);
+  }
+
+  add(movie:Movie):Observable<Movie>{
+    this.loggingService.add("MovieService is adding the new movie. name: "+movie.name);
+    return this.http.post<Movie>(this.moviesApiUrl,movie);
+  }
+
+  delete(id:number):Observable<Movie>{
+    this.loggingService.add("MovieService is deleting the movie. id: "+id);
+    return this.http.delete<Movie>(this.moviesApiUrl+"/"+id);
   }
 }

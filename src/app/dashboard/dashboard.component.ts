@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoggingService } from '../logging.service';
 import { Movie } from '../movie';
 import { MovieService } from '../movie.service';
 
@@ -10,13 +11,14 @@ import { MovieService } from '../movie.service';
 export class DashboardComponent implements OnInit {
   movies : Movie[]
   moviesLength : number
-  constructor(private movieService:MovieService) {
+  constructor(private movieService:MovieService, private loggingService:LoggingService) {
 
    }
 
   ngOnInit(): void {
-    this.movieService.get5movies(1).subscribe(movies=>{this.movies = movies});
-    this.moviesLength = this.movieService.getMoviesLength();
+    this.movieService.getMovies().subscribe(movies=>{this.movies = movies;
+                                                    this.moviesLength = movies.length;});
+    this.loggingService.add("Movies were retrieved from movieservice");
   }
 
 }

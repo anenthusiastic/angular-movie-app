@@ -10,4 +10,5 @@ export const Movies:Movie[] = [
   new Movie(7, "Fight Club","An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.","FightClub.jpg"),
   new Movie(8, "3 Idiot",'Two friends are searching for their long lost companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them "idiots".',"3Idiots.jpg"),
   new Movie(9, "Joker","In Gotham City, mentally troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: the Joker.","Joker.jpg")
+
 ];
